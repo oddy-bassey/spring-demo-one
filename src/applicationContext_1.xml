@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- creating a configuration file -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- Define your beans here -->
+    
+    <!-- add a reference for the context property plce holder(load the properties file sport.properties) -->
+    <context:property-placeholder location = "classpath:sport.properties"/>
+    
+    <!-- define the dependency -->
+    <bean
+        id = "myFortune"
+        class = "SpringInjection.HappyFortuneService">
+    </bean>
+    
+    <bean
+        id = "MyCoach"
+        class = "SpringInjection.CricketCoach"
+        scope = "prototype">
+        
+        <!-- setup the constructor -->
+        <!-- <constructor-arg ref = "myFortune"/> -->
+        
+        <!-- setup the setter injection -->
+        <property name="fortuneService" ref = "myFortune"/>
+        
+        <!-- injecting literal values email and team into spring objects-->
+        <!-- <property name="emailAddress" value = "oddybassey@gmail.com"/> -->
+        <!-- <property name="team" value = "manchester boyeres"/> -->
+        
+        <!-- injecting literal values email and team from properties file-->
+        <property name="emailAddress" value = "${foo.email}"/>
+        <property name="team" value = "${foo.team}"/>
+    </bean>
+
+</beans>
+
+
+
+
+
